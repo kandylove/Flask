@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, sqlite3
 app = Flask(__name__)
 import pandas as pd
 import os
@@ -12,6 +12,15 @@ def hello():
 @app.route('/api')  # <- this is your new route
 def api():
     return jsonify(x=42)
+
+@app.route("/players/count")
+def players_count():
+    conn = sqlite3.connect("players_20.db")
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) FROM players")
+    count = cursor.fetchone()[0]
+    conn.close()
+    return jsonify(count=count)
 
 @app.route("/getData/<int:year>")
 def getData(year):
