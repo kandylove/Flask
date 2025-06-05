@@ -1,4 +1,5 @@
-from flask import Flask, render_template, jsonify, sqlite3
+from flask import Flask, render_template, jsonify
+import sqlite3
 app = Flask(__name__)
 import pandas as pd
 import os
