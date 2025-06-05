@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 app = Flask(__name__)
 import pandas as pd
 import os
@@ -8,6 +8,10 @@ APP_FOLDER = os.path.dirname(os.path.realpath(__file__))
 @app.route("/")
 def hello():
     return render_template("index.html")
+
+@app.route('/api')  # <- this is your new route
+def api():
+    return jsonify(x=42)
 
 @app.route("/getData/<int:year>")
 def getData(year):
